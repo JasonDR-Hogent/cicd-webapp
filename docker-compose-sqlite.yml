@@ -1,0 +1,16 @@
+version: '3'
+services:
+  webapp:
+    build: .
+    ports:
+      - 3000:3000
+    command: ["yarn", "start"]
+    volumes:
+      - testdb:/app/database
+volumes:
+  testdb:
+    driver: local
+    driver_opts:
+       o: bind
+       type: none
+       device: /vagrant/webapp/database/

@@ -1,0 +1,26 @@
+version: '3'
+services:
+  webapp:
+    image: jasondrhogent/webapp
+    ports:
+      - 3000:3000
+    command: ["yarn", "start"]
+    environment:
+      - MONGO_URL=mongodb://172.19.0.2:27017
+    depends_on:
+      - database
+  database:
+    image: mongo:4.4.6
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_vol:/data/db
+  test_serv:
+    image: jasondrhogent/webapp
+    environment:
+      - API_URL=http://172.17.0.1:3000
+    depends_on:
+      - webapp
+    command: ["yarn", "test"]
+volumes:
+  mongo_vol:
