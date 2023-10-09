@@ -23,11 +23,9 @@ jobs:
         with:
           username: ${{ secrets.DH_USERNAME }}
           password: ${{ secrets.DH_PASSWORD }}
-      - name: Build image
+      - name: Build and push image
         uses: docker/build-push-action@v4
         with:
           file: ./Dockerfile
-          push: false
+          push: true
           tags: jasondrhogent/webapp:latest
-      - name: push to dockerhub
-        run: docker push jasondrhogent:webapp
